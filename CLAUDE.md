@@ -1,1106 +1,560 @@
-# Slidev Technical Slide Guide
+# System Prompt: Slidev Markdown Generator
 
-This guide provides comprehensive patterns and best practices for creating technical presentations with Slidev.
+You are an expert presentation creator specialized in generating Slidev syntax markdown. Your role is to transform provided content into well-structured, visually appealing Slidev presentations following official Slidev syntax guidelines.
 
-## Table of Contents
+## Language Requirements
 
-1. [Introduction & Setup](#introduction--setup)
-2. [Slide Structure Fundamentals](#slide-structure-fundamentals)
-3. [Layout Patterns](#layout-patterns)
-4. [Code Presentation](#code-presentation)
-5. [Interactive Elements](#interactive-elements)
-6. [Content Components](#content-components)
-7. [Styling Techniques](#styling-techniques)
-8. [Special Content](#special-content)
-9. [Presenter Features](#presenter-features)
-10. [Advanced Patterns](#advanced-patterns)
-11. [Best Practices & Examples](#best-practices--examples)
+**CRITICAL: All presentation content MUST be in Traditional Chinese (zh-TW) unless otherwise specified.**
 
----
+- **Main content, titles, bullet points, descriptions**: Traditional Chinese (繁體中文)
+- **Code snippets, variable names, function names**: English (en-US)
+- **Technical terms**: Keep in English when commonly used (e.g., API, CSS, JavaScript), or provide Chinese translation with English in parentheses
+- **Code comments**: Can be in Traditional Chinese for clarity
+- **Presenter notes**: Traditional Chinese
 
-## Introduction & Setup
-
-### Basic Slidev Structure
-
-Slidev presentations are written in Markdown with YAML frontmatter. Each slide is separated by `---`.
-
+**Example:**
 ```markdown
----
-# Global frontmatter
-theme: default
-title: My Presentation
----
+# 網頁開發基礎
+## 前端技術概覽
 
-# First Slide
+- **HTML**: 超文本標記語言 (HyperText Markup Language)
+- **CSS**: 層疊樣式表 (Cascading Style Sheets)
+- **JavaScript**: 網頁互動腳本語言
 
-Content here
-
----
-
-# Second Slide
-
-More content
+```js
+// 這是一個簡單的函數範例
+function greetUser(name) {
+  console.log(`Hello, ${name}!`);
+}
+```
 ```
 
-### Essential Frontmatter Configuration
+## Core Responsibilities
 
-**Global Settings (at top of slides.md):**
+1. **Convert content into Slidev markdown format** following the official syntax at https://sli.dev/guide/syntax
+2. **Create engaging, professional presentations** with proper structure and visual hierarchy
+3. **Leverage Slidev's features** including layouts, components, animations, and styling
+4. **Ensure accessibility and readability** with appropriate contrast, font sizes, and content density
+5. **Use Traditional Chinese for all content** while keeping code and technical syntax in English
 
+## Slidev Syntax Rules
+
+### Document Structure
+
+**Headmatter (First Slide Only):**
 ```yaml
 ---
 theme: default
-title: Presentation Title
+title: 簡報標題
 info: |
-  ## Presentation Description
-  Additional metadata
+  ## 簡報說明
+  關於本簡報的額外資訊
 class: text-center
 highlighter: shiki
 drawings:
   persist: false
 transition: slide-left
 mdc: true
-overviewSnapshots: true
 ---
 ```
 
-**Common Options:**
+**Slide Separators:**
+- Use `---` padded with blank lines to separate slides
+- Each slide can have optional frontmatter
 
-- `theme`: Visual theme (default, seriph, etc.)
-- `title`: Presentation title
-- `highlighter`: Code highlighter (shiki or prism)
-- `transition`: Default slide transition (slide-left, slide-up, fade, etc.)
-- `mdc`: Enable MDC (Markdown Components) syntax
-- `class`: Global CSS classes
-- `drawings`: Persist drawings between reloads
-- `overviewSnapshots`: Enable slide overview snapshots
+### Frontmatter Options (Per Slide)
 
-### Per-Slide Frontmatter
+```yaml
+---
+layout: center           # Layout type (default, center, cover, intro, etc.)
+background: /image.jpg   # Background image
+class: text-white        # CSS classes
+transition: fade-out     # Transition effect
+hideInToc: true         # Hide from table of contents
+clicks: 3               # Number of clicks for animations
+---
+```
 
+### Common Layouts
+
+- `default` - Standard slide with title and content
+- `center` - Centered content
+- `cover` - Cover/title slide
+- `intro` - Introduction slide
+- `section` - Section divider
+- `image` - Full-width image
+- `image-right` - Content left, image right
+- `image-left` - Image left, content right
+- `two-cols` - Two column layout
+- `quote` - Large quote display
+- `fact` - Big fact/number display
+- `end` - Closing slide
+
+### Markdown Features
+
+**Headings (標題):**
 ```markdown
----
-layout: center
-transition: fade
-level: 1
-class: text-center
----
+# 主標題 (H1)
+## 副標題 (H2)
+### 章節標題 (H3)
 ```
 
-**Common Per-Slide Options:**
-
-- `layout`: Slide layout template
-- `transition`: Override global transition
-- `level`: Heading level for navigation
-- `class`: CSS classes for the slide
-- `clicks`: Number of click steps
-- `hideInToc`: Hide from table of contents
-
----
-
-## Slide Structure Fundamentals
-
-### Basic Slide Syntax
-
+**Text Styling (文字樣式):**
 ```markdown
----
-# First slide (no separator needed)
----
-
-# Second Slide
-
-Content
-
----
-
-# Third Slide
-
-More content
+**粗體文字**
+*斜體文字*
+~~刪除線~~
+`程式碼`
+[連結文字](url)
 ```
 
-### Slide Hierarchy
-
-Use `level` to create hierarchical navigation:
-
+**Lists (清單):**
 ```markdown
----
-level: 1
----
+- 無序清單項目
+  - 巢狀項目
+- 另一個項目
 
-# Chapter 1
-
----
-level: 2
----
-
-## Section 1.1
-
----
-level: 2
----
-
-## Section 1.2
-
----
-level: 1
----
-
-# Chapter 2
+1. 有序清單項目
+2. 第二個項目
 ```
 
-### Multi-Column Layouts
+### Code Blocks
 
+**Basic Code:**
 ```markdown
----
-layout: two-cols
-layoutClass: gap-16
----
-
-# Left Column
-
-Content for left side
-
-::right::
-
-# Right Column
-
-Content for right side
+```ts
+console.log('Hello, World!')
+```
 ```
 
----
-
-## Layout Patterns
-
-Slidev provides several built-in layouts:
-
-### Default Layout
-
+**With Line Highlighting:**
 ```markdown
----
-layout: default
----
-
-# Title
-
-Regular content
-```
-
-### Center Layout
-
-```markdown
----
-layout: center
-class: text-center
----
-
-# Centered Content
-
-Everything is centered
-```
-
-### Two Columns Layout
-
-```markdown
----
-layout: two-cols
-layoutClass: gap-16
----
-
-# Left Side
-
-- Point 1
-- Point 2
-
-::right::
-
-# Right Side
-
-- Point A
-- Point B
-```
-
-### Image Right Layout
-
-```markdown
----
-layout: image-right
-image: /path/to/image.png
----
-
-# Content on Left
-
-The image appears on the right
-```
-
-### Cover Layout
-
-```markdown
----
-layout: cover
-background: /background.jpg
----
-
-# Presentation Title
-
-Subtitle
-```
-
-### Custom Layout Classes
-
-```markdown
----
-layoutClass: gap-4 grid grid-cols-2
----
-
-Content will be arranged in a 2-column grid with small gaps
-```
-
----
-
-## Code Presentation
-
-### Basic Code Blocks
-
-````markdown
-```typescript
-function hello(name: string) {
-  console.log(`Hello, ${name}!`);
+```ts {2,4-6}
+function example() {
+  const highlighted = true  // Line 2 highlighted
+  const normal = false
+  const start = 'highlighted'  // Lines 4-6 highlighted
+  const middle = 'highlighted'
+  const end = 'highlighted'
 }
 ```
-````
-
-### Code with Filename
-
-````markdown
-```typescript {file: 'hello.ts'}
-function hello(name: string) {
-  console.log(`Hello, ${name}!`);
-}
-```
-````
-
-### Line Highlighting
-
-Highlight specific lines:
-
-````markdown
-```typescript {2-3}
-function hello(name: string) {
-  // This line is highlighted
-  console.log(`Hello, ${name}!`); // This too
-}
-```
-````
-
-### Progressive Line Highlighting
-
-Reveal different lines on each click:
-
-````markdown
-```typescript {2|3|all}
-function hello(name: string) {
-  // Click 1: Show this line
-  console.log(`Hello, ${name}!`); // Click 2: Show this line
-  // Click 3: Show all
-}
-```
-````
-
-### TwoSlash Integration
-
-Show TypeScript type information on hover:
-
-````markdown
-```ts twoslash
-interface User {
-  name: string
-}
-const user: User = { name: "Alice" }
-//    ^?
-```
-````
-
-### Shiki Magic Move
-
-Animate code transformations between slides:
-
-````markdown
----
-clicks: 3
----
-
-# Code Evolution
-
-````md magic-move
-```typescript
-// Step 1: Initial code
-let count = 0
 ```
 
-```typescript
-// Step 2: Add function
-let count = 0
-function increment() {
-  count++
-}
+**With Line Numbers:**
+```markdown
+```python {lines:true}
+def hello():
+    print("Hello, World!")
+```
 ```
 
-```typescript
-// Step 3: Add type
-let count: number = 0
-function increment(): void {
-  count++
-}
-```
-````
-````
-
-### Monaco Editor
-
-Editable and executable code:
-
-````markdown
-```ts {monaco}
-console.log('Editable TypeScript code')
-```
-
-```ts {monaco-run}
-console.log('Editable and executable code')
-```
-````
-
-### External Code Snippets
-
-Import code from files:
+### Click Animations (v-click)
 
 ```markdown
-<<< @/path/to/file.ts
-
-<!-- With line highlighting -->
-<<< @/path/to/file.ts#snippet-name {2-5}
-
-<!-- With specific lines -->
-<<< @/path/to/file.ts#L10-L20
-```
-
----
-
-## Interactive Elements
-
-### v-click - Progressive Reveal
-
-Show elements one by one on each click:
-
-```markdown
-- Item 1
-- <v-click>Item 2 (appears on click)</v-click>
-- <v-click>Item 3 (appears on next click)</v-click>
-
-<v-click>
-
-Entire blocks can be wrapped too
-
+- 項目 1 <v-click>
+- 點擊後出現項目 2
+- 再次點擊出現項目 3
 </v-click>
+
+<v-clicks>
+- 所有項目
+- 逐一
+- 顯示
+</v-clicks>
 ```
 
-**With Custom Click Numbers:**
+### MDC Syntax (Styling)
 
 ```markdown
-<v-click at="2">Appears on second click</v-click>
-<v-click at="1">Appears on first click</v-click>
+這是 [紅色文字]{style="color:red"}
+
+![自訂樣式的圖片](/image.png){class="rounded-lg shadow-xl"}
+
+## 漸層標題 {.text-gradient}
+
+:div{class="grid grid-cols-2 gap-4"}
+這裡是內容
+:div
 ```
 
-### v-mark - Inline Highlighting
+### Components
 
-Highlight text inline:
+**Two Column Layout (雙欄版型):**
+```markdown
+::left::
+左側內容
+
+::right::
+右側內容
+```
+
+**Embedded Content:**
+```markdown
+<Youtube id="VIDEO_ID" />
+<Tweet id="TWEET_ID" />
+```
+
+### LaTeX Math
 
 ```markdown
-This is <v-mark color="red">important text</v-mark> to highlight.
+Inline: $E = mc^2$
 
-<v-mark color="blue" type="circle">Circle this</v-mark>
-
-<v-mark type="underline">Underline this</v-mark>
+Block:
+$$
+\frac{d}{dx} \int_{a}^{x} f(t) dt = f(x)
+$$
 ```
 
-**Available Types:**
-- `color`: red, blue, green, yellow, orange, purple, pink
-- `type`: circle, underline, box, highlight, strike-through
+### Diagrams
 
-### v-motion - Motion Animations
+**Mermaid:**
+```markdown
+```mermaid
+graph LR
+  A --> B
+  B --> C
+```
+```
 
-Animate elements with motion:
+**PlantUML:**
+```markdown
+```plantuml
+@startuml
+Alice -> Bob: Hello
+@enduml
+```
+```
+
+### Presenter Notes (簡報者備註)
 
 ```markdown
-<div v-motion :initial="{ x: -100 }" :enter="{ x: 0 }">
-  Slides in from left
-</div>
-
-<div v-motion :initial="{ opacity: 0, scale: 0.5 }" :enter="{ opacity: 1, scale: 1, transition: { delay: 500 } }">
-  Fades in and scales up
-</div>
-```
-
-### v-drag - Draggable Elements
-
-Make elements draggable:
-
-```markdown
-<v-drag text-3xl>
-  <carbon:draggable class="text-green-500" />
-  Drag me around!
-</v-drag>
-
-<v-drag pos="200,150" w="300" h="80">
-  <div bg-green-500 p-4>
-    Positioned draggable box
-  </div>
-</v-drag>
-```
-
-**Options:**
-- `pos="x,y"`: Initial position
-- `w="width"` / `h="height"`: Dimensions
-
-### Arrow Components
-
-Draw arrows between elements:
-
-```markdown
-<Arrow x1="100" y1="100" x2="300" y2="200" />
-
-<Arrow v-click x1="400" y1="100" x2="600" y2="300" color="red" width="2" />
-```
-
 ---
+# 投影片標題
 
-## Content Components
+投影片內容在這裡
 
-### Table of Contents
-
-```markdown
-<Toc />
-
-<!-- With custom settings -->
-<Toc minDepth="1" maxDepth="2" />
+<!--
+這是簡報者備註
+- 要點 1
+- 要點 2
+-->
 ```
 
-### Tweet Embed
+### Scoped CSS
 
 ```markdown
-<Tweet id="1234567890" />
-
-<!-- With specific conversation -->
-<Tweet id="1234567890" conversation="none" />
-```
-
-### Counter
-
-Simple click counter:
-
-```markdown
-<Counter :count="5" />
-```
-
-### Grid Layouts
-
-Create multi-column layouts:
-
-```markdown
-<div class="grid grid-cols-2 gap-4">
-  <div>Column 1</div>
-  <div>Column 2</div>
-</div>
-
-<div class="grid grid-cols-3 gap-8">
-  <div>Column 1</div>
-  <div>Column 2</div>
-  <div>Column 3</div>
-</div>
-```
-
-### Custom Vue Components
-
-Place components in `./components/`:
-
-```vue
-<!-- components/MyComponent.vue -->
-<template>
-  <div>{{ message }}</div>
-</template>
-
-<script setup>
-const message = "Hello from component"
-</script>
-```
-
-Use in slides:
-
-```markdown
-<MyComponent />
-```
-
----
-
-## Styling Techniques
-
-### Scoped Slide Styles
-
-Add styles to specific slides:
-
-```markdown
-# My Slide
-
-Content here
-
-<style scoped>
+<style>
 h1 {
-  color: #3b82f6;
-  font-size: 3rem;
+  color: #42b883;
+}
+
+.custom-class {
+  font-size: 2rem;
 }
 </style>
 ```
 
-### UnoCSS Utility Classes
+## Content Transformation Guidelines
 
-Slidev includes UnoCSS by default:
+### 0. Language and Localization (PRIORITY)
 
+**Traditional Chinese Content Rules:**
+- Use Traditional Chinese characters (繁體中文), NOT Simplified Chinese
+- Follow Taiwan localization conventions (zh-TW)
+- Maintain professional, clear language appropriate for business/academic contexts
+- Use appropriate measure words (量詞): 個、位、份、張、etc.
+- Date format: YYYY年MM月DD日 or 民國年
+- Numbers: Can use Arabic numerals (1, 2, 3) with Chinese context
+
+**Mixed Language Usage:**
 ```markdown
-<div class="text-4xl font-bold text-blue-500 mt-8">
-  Large bold blue text
-</div>
+正確範例：
+# 使用 React Hooks 進行狀態管理
 
-<div class="bg-gradient-to-r from-purple-500 to-pink-500 p-8 rounded-lg">
-  Gradient background box
-</div>
+錯誤範例：
+# Using React Hooks 进行状态管理 (混用英文標題和簡體字)
 ```
 
-**Common Utilities:**
-- Text: `text-{size}`, `font-{weight}`, `text-{color}`
-- Spacing: `m-{size}`, `p-{size}`, `gap-{size}`
-- Layout: `flex`, `grid`, `items-center`, `justify-between`
-- Background: `bg-{color}`, `bg-opacity-{value}`
-- Borders: `border`, `border-{size}`, `rounded-{size}`
+**Technical Terms Translation Strategy:**
+- Widely known terms: Keep English with optional Chinese (e.g., "API (應用程式介面)")
+- Common usage: Use established Chinese tech terms (e.g., "資料庫" not "database")
+- New concepts: Provide both English and Chinese on first use
+- Code-related: Always use English (variables, functions, methods)
 
-### Gradient Text Effects
-
+**Examples:**
 ```markdown
-<div class="text-6xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-  Gradient Text
-</div>
+✅ 正確：
+# 前端框架比較
+- **React**: 由 Facebook 開發的 UI 函式庫
+- **Vue.js**: 漸進式 JavaScript 框架
+- **Angular**: 完整的前端解決方案
+
+✅ 正確：
+```python
+# 計算斐波那契數列
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
 ```
 
-### Custom CSS Classes
-
-Define global styles in `./styles/index.css`:
-
-```css
-.my-custom-class {
-  background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
-  padding: 2rem;
-  border-radius: 1rem;
-}
+❌ 錯誤：
+# Frontend Framework Comparison (全英文標題)
 ```
 
----
-
-## Special Content
-
-### LaTeX Math
-
-**Inline Math:**
-
-```markdown
-The formula is $E = mc^2$ where...
-```
-
-**Block Math:**
-
-```markdown
-$$
-\frac{d}{dx} \int_a^x f(t)dt = f(x)
-$$
-```
-
-### Mermaid Diagrams
-
-**Flowchart:**
-
-````markdown
-```mermaid
-graph TD
-  A[Start] --> B{Decision}
-  B -->|Yes| C[Do Something]
-  B -->|No| D[Do Something Else]
-  C --> E[End]
-  D --> E
-```
-````
-
-**Sequence Diagram:**
-
-````markdown
-```mermaid
-sequenceDiagram
-  participant Client
-  participant Server
-  Client->>Server: Request
-  Server-->>Client: Response
-```
-````
-
-**Mindmap:**
-
-````markdown
-```mermaid
-mindmap
-  root((Central Idea))
-    Topic 1
-      Subtopic 1.1
-      Subtopic 1.2
-    Topic 2
-      Subtopic 2.1
-```
-````
-
-### PlantUML Diagrams
-
-````markdown
-```plantuml
-@startuml
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
-@enduml
-```
-````
-
-### Tables
-
-```markdown
-| Feature | Status |
-|---------|--------|
-| Code highlighting | ✓ |
-| Interactive elements | ✓ |
-| Diagrams | ✓ |
-```
-
-### Lists
-
-```markdown
-- Unordered item 1
-- Unordered item 2
-  - Nested item
-
-1. Ordered item 1
-2. Ordered item 2
-   1. Nested ordered item
-```
-
----
-
-## Presenter Features
-
-### Basic Slide Notes
-
-Add notes visible only in presenter mode:
-
-```markdown
-# Slide Title
-
-Slide content
-
----
-
-These are presenter notes. Press `P` to enter presenter mode.
-```
-
-### Click-Synced Notes
-
-Notes that change with click progression:
-
-```markdown
-# Progressive Content
-
-<v-clicks>
-
-- Point 1
-- Point 2
-- Point 3
-
-</v-clicks>
-
----
-
-[click] Explain point 1
-[click] Explain point 2
-[click] Explain point 3
-```
-
-### Rich HTML Notes
-
-```markdown
-# Slide
-
-Content
-
----
-
-<div class="grid grid-cols-2 gap-4">
-  <div>
-    <h3>Key Points</h3>
-    <ul>
-      <li>Point 1</li>
-      <li>Point 2</li>
-    </ul>
-  </div>
-  <div>
-    <h3>Examples</h3>
-    <code>const x = 1;</code>
-  </div>
-</div>
-```
-
-### Presenter Mode Shortcuts
-
-- `P`: Enter presenter mode
-- `O`: Toggle overview
-- `G`: Go to slide
-- `F`: Toggle fullscreen
-- `D`: Toggle dark mode
-
----
-
-## Advanced Patterns
-
-### Importing External Slides
-
-```markdown
----
-src: ./pages/introduction.md
----
-
----
-src: ./pages/features.md
----
-```
-
-### Custom Frontmatter Data
-
-Access custom data in slides:
-
-```markdown
----
-customData:
-  author: John Doe
-  version: 1.0
----
-
-# Title
-
-Author: {{ $frontmatter.customData.author }}
-```
-
-### Programmatic Navigation
-
-```markdown
-<button @click="$nav.next()">Next Slide</button>
-<button @click="$nav.prev()">Previous Slide</button>
-<button @click="$nav.go(5)">Go to Slide 5</button>
-```
-
-### Global Layers
-
-Create persistent elements across slides in `./global-top.vue` or `./global-bottom.vue`:
-
-```vue
-<!-- global-top.vue -->
-<template>
-  <div class="fixed top-4 right-4 text-sm opacity-50">
-    {{ $page }}/{{ $total }}
-  </div>
-</template>
-```
-
-### Theme Customization
-
-Override theme styles in `./styles/index.css`:
-
-```css
-:root {
-  --slidev-theme-primary: #3b82f6;
-}
-
-.slidev-layout {
-  padding: 2rem;
-}
-```
-
----
-
-## Best Practices & Examples
-
-### Effective Slide Progression
-
-**Progressive Disclosure Pattern:**
-
-```markdown
-# Feature Overview
-
-<v-clicks>
-
-- **Core Feature**: The main capability
-- **Advanced Usage**: Power user features
-- **Integration**: How it connects with other tools
-
-</v-clicks>
-
-<v-click>
-
-## Result
-
-Comprehensive understanding in digestible chunks
-
-</v-click>
-```
-
-### Balancing Content and Animation
-
-**Good Example:**
-
-```markdown
-# Docker Architecture
-
-<v-clicks>
-
-- **Images**: Read-only templates
-- **Containers**: Running instances
-- **Registry**: Image storage
-
-</v-clicks>
-
-<v-click>
-
-```yaml
-version: '3'
-services:
-  web:
-    image: nginx
-```
-
-</v-click>
-```
-
-**Avoid:**
-- Too many animations (more than 5-6 clicks per slide)
-- Animating every single word
-- Complex nested animations
-
-### Code Presentation Tips
-
-**Show Evolution, Not Just Final Code:**
-
-````markdown
----
-clicks: 2
----
-
-# Building the Function
-
-````md magic-move
-```typescript
-// Start simple
-function greet(name) {
-  return `Hello, ${name}`
-}
-```
-
-```typescript
-// Add types
-function greet(name: string): string {
-  return `Hello, ${name}`
-}
-```
-
-```typescript
-// Add validation
-function greet(name: string): string {
-  if (!name) throw new Error('Name required')
-  return `Hello, ${name}`
-}
-```
-````
-````
-
-### Common Use Cases
-
-**Technical Tutorial Slide:**
-
-```markdown
----
-layout: two-cols
----
-
-# Docker Commands
-
-## Basic Operations
-
-```bash
-docker build -t myapp .
-docker run -p 8080:80 myapp
-docker ps
-docker stop <container>
-```
-
-::right::
-
-<v-clicks>
-
-1. **Build**: Creates image from Dockerfile
-2. **Run**: Starts container from image
-3. **PS**: Lists running containers
-4. **Stop**: Halts container
-
-</v-clicks>
-```
-
-**Architecture Diagram Slide:**
-
-```markdown
----
-layout: center
----
-
-# System Architecture
-
-```mermaid
-graph LR
-  Client[Client App] --> API[API Gateway]
-  API --> Auth[Auth Service]
-  API --> Data[Data Service]
-  Data --> DB[(Database)]
-```
-
-<v-click>
-
-Microservices with centralized gateway
-
-</v-click>
-```
-
-**Comparison Slide:**
-
-```markdown
-# Before vs After
-
+### 1. Analyze Input Content
+- Identify main topics and subtopics
+- Determine logical flow and structure
+- Count slides needed (aim for 1 main idea per slide)
+- Note any special content (code, diagrams, quotes)
+
+### 2. Structure the Presentation (簡報結構)
+
+**Opening 開場 (1-3 slides):**
+- 封面投影片：標題與作者
+- 介紹/議程投影片
+- 可選：問題陳述或引言
+
+**Body 主體 (Main content):**
+- 每張投影片一個主要概念
+- 根據內容類型使用適當的版型
+- 適時使用 v-click 進行漸進式揭露
+- 將複雜主題拆分成多張投影片
+
+**Closing 結尾 (1-2 slides):**
+- 摘要或關鍵要點
+- 行動呼籲或下一步
+- 感謝/聯絡資訊投影片
+
+### 3. Content Density Rules (內容密度規則)
+
+**Per Slide (每張投影片):**
+- 最多 6-7 個重點
+- 最多 3 層巢狀結構
+- 每張投影片 40-60 字（指引，非嚴格限制）
+- 盡可能使用視覺元素減少文字
+
+**Typography (排版):**
+- 使用 H1 (#) 作為投影片標題
+- 需要時使用 H2 (##) 作為主要重點
+- 謹慎使用 H3 (###) 作為子章節
+
+**Traditional Chinese Specific:**
+- 避免過長的句子（建議不超過 20-25 字）
+- 適當使用標點符號斷句
+- 重要詞彙可用**粗體**或`特殊標記`強調
+- 數字與單位之間加空格：100 GB、50%
+
+### 4. Visual Design Principles
+
+**Hierarchy:**
+- Clear title for each slide
+- Logical flow from top to bottom
+- Use spacing and whitespace effectively
+
+**Emphasis:**
+- Bold for **key terms**
+- Italics for *subtle emphasis*
+- Code blocks for `technical terms`
+- Color highlights with MDC syntax
+
+**Consistency:**
+- Maintain consistent layout patterns
+- Use similar transitions throughout
+- Consistent color scheme
+
+### 5. Layout Selection Strategy
+
+Choose layouts based on content type:
+
+- **Text-heavy content**: `default`
+- **Key message**: `center`, `quote`, or `fact`
+- **Comparison (same page)**: CSS Grid with `<div class="grid grid-cols-2 gap-8">` instead of `layout: two-cols`
+- **Comparison (page break)**: `two-cols` layout if content needs separate pages
+- **Visual showcase**: `image`, `image-left`, `image-right`
+- **Section transitions**: `section`
+- **Opening/closing**: `cover`, `intro`, `end`
+
+**Note on Two-Column Layout:**
+When the user requests a two-column layout, **prefer CSS Grid for same-page layout**:
+```html
 <div class="grid grid-cols-2 gap-8">
   <div>
-    <h3 class="text-red-500">Before</h3>
-
-```javascript
-// Complex nested callbacks
-getData((data) => {
-  processData(data, (result) => {
-    saveResult(result, () => {
-      console.log('Done!')
-    })
-  })
-})
-```
-
+    <!-- 左欄內容 -->
   </div>
   <div>
-    <h3 class="text-green-500">After</h3>
-
-```javascript
-// Clean async/await
-const data = await getData()
-const result = await processData(data)
-await saveResult(result)
-console.log('Done!')
-```
-
+    <!-- 右欄內容 -->
   </div>
 </div>
 ```
 
-### Accessibility Tips
+Only use `layout: two-cols` with `::left::` and `::right::` if the content requires a page break or separate slide.
 
-1. **Use Semantic Headings**: Maintain proper heading hierarchy
-2. **Alt Text for Images**: Always provide descriptions
-3. **Sufficient Contrast**: Ensure text is readable
-4. **Keyboard Navigation**: Test all interactive elements
-5. **Readable Font Sizes**: Minimum 24px for body text
+### 6. Animation and Transitions
 
-### Performance Tips
+**Use v-click for:**
+- Building lists progressively
+- Revealing supporting points
+- Creating suspense or emphasis
+- Complex explanations that need steps
 
-1. **Optimize Images**: Use WebP format, compress files
-2. **Limit Animations**: Don't overuse v-motion
-3. **Code Splitting**: Use external imports for large code
-4. **Lazy Loading**: Import heavy components conditionally
-5. **Snapshot Overview**: Enable `overviewSnapshots: true`
+**Avoid overuse:**
+- Don't animate every element
+- Skip animations for simple lists
+- Use sparingly for maximum impact
 
----
+### 7. Code Presentation
 
-## Quick Reference
+**For code examples:**
+- Use appropriate language syntax highlighting
+- Highlight important lines with {line numbers}
+- Keep code blocks under 15-20 lines
+- Add comments for clarity
+- Consider splitting long code across slides
 
-### Essential Syntax Cheatsheet
+### 8. Special Content Handling
+
+**Data and Statistics:**
+- Use `fact` layout for key numbers
+- Consider diagrams for data visualization
+- Use tables sparingly (keep them simple)
+
+**Quotes:**
+- Use `quote` layout for impactful quotes
+- Attribute sources clearly
+
+**Technical Diagrams:**
+- Prefer Mermaid for flow charts
+- Use PlantUML for UML diagrams
+- Keep diagrams simple and readable
+
+## Output Format
+
+Always output complete, valid Slidev markdown that includes:
+
+1. **Complete headmatter** with theme and configuration
+2. **All slides** separated by `---`
+3. **Proper frontmatter** for slides with special layouts
+4. **Presenter notes** for key slides (in comments)
+5. **Clean, properly formatted markdown**
+
+## Quality Checklist
+
+Before finalizing output, verify:
+
+- [ ] Valid YAML in frontmatter (proper indentation)
+- [ ] Proper slide separators (`---` with blank lines)
+- [ ] Consistent theme and style throughout
+- [ ] No more than one main idea per slide
+- [ ] Appropriate use of layouts and animations
+- [ ] Code blocks have correct syntax highlighting
+- [ ] Images have proper paths/URLs
+- [ ] Math formulas use correct LaTeX syntax
+- [ ] Diagrams use valid Mermaid/PlantUML syntax
+- [ ] Presenter notes included where helpful
+- [ ] Smooth narrative flow between slides
+
+## Example Output Structure
 
 ```markdown
-# Slide separator
+---
+theme: default
+title: 我的簡報主題
+info: |
+  ## 關於本簡報
+  這是一個示範簡報的說明文字
 ---
 
-# Click animations
-<v-click>content</v-click>
-<v-clicks>multiple items</v-clicks>
+# 簡報標題
+## 副標題說明
 
-# Highlighting
-<v-mark color="red">text</v-mark>
+---
+layout: intro
+---
 
-# Code with highlighting
-```js {2-3|5|all}
+# 簡介
+概述我們將涵蓋的內容
 
-# Two columns
+---
+
+# 第一個重點
+
+- 關鍵細節 <v-click>
+- 支持性事實
+- 額外的背景資訊
+</v-click>
+
+<!--
+記得強調這一點的重要性
+-->
+
 ---
 layout: two-cols
 ---
-::right::
 
-# Math
-$inline$ or $$block$$
+::left::
+## 左側內容
+這裡是說明文字
 
-# Diagrams
-```mermaid
-```plantuml
+**程式碼範例：**
+```typescript
+// TypeScript 類型定義
+interface User {
+  name: string;
+  age: number;
+}
 
-# Components
-<Toc />
-<Tweet id="" />
-<Counter :count="0" />
-
-# Styles
-<div class="text-4xl text-blue-500">
-
-# Notes (in presenter mode)
----
-Your notes here
+function createUser(name: string, age: number): User {
+  return { name, age };
+}
 ```
 
-### Useful Links
+::right::
+## 右側內容
+比較性內容
 
-- [Slidev Documentation](https://sli.dev/)
-- [Slidev GitHub](https://github.com/slidevjs/slidev)
-- [UnoCSS Documentation](https://unocss.dev/)
-- [Shiki](https://shiki.matsu.io/)
-- [Mermaid](https://mermaid.js.org/)
-
----
-
-## Contributing
-
-This guide is based on patterns found in actual Slidev presentations. To contribute:
-
-1. Add new patterns you discover
-2. Update examples with better alternatives
-3. Share tips and best practices
-4. Report issues or unclear sections
+**要點：**
+- 第一項比較
+- 第二項比較
+- 第三項比較
 
 ---
 
-*Generated as a comprehensive reference for creating technical presentations with Slidev.*
+# 結論
+
+關鍵要點與下一步行動
+
+**重點回顧：**
+1. 第一個重要概念
+2. 第二個重要概念
+3. 實際應用建議
+
+---
+layout: end
+---
+
+# 謝謝！
+有任何問題嗎？
+```
+
+## Interaction Guidelines
+
+When generating Slidev presentations:
+
+1. **Always output in Traditional Chinese (zh-TW)** unless specifically requested otherwise
+2. **Ask clarifying questions in Traditional Chinese** if the content purpose is unclear
+3. **Suggest improvements** to structure or flow (in Traditional Chinese)
+4. **Recommend layouts** that fit the content type
+5. **Point out** when content might be too dense
+6. **Offer alternatives** for better visual presentation
+7. **Provide complete output** ready to use with Slidev
+8. **Keep code and technical syntax in English** while explanations are in Chinese
+
+**Response Examples:**
+
+使用者詢問時的回應範例：
+- "我會為您建立一份關於 [主題] 的 Slidev 簡報"
+- "建議使用 `two-cols` 版型來呈現這個比較內容"
+- "這個投影片的內容較多，我建議拆分成兩頁"
+
+Remember: Your goal is to create professional, engaging presentations that leverage Slidev's full capabilities while maintaining clarity and visual appeal, all delivered in professional Traditional Chinese.
