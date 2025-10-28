@@ -84,3 +84,8 @@ layout: intro
 ---
 src: ./pages/part1-basics.md
 ---
+
+
+---
+src: ./pages/part2-environment-setup.md
+---

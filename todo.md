@@ -29,14 +29,14 @@
 ## 第二部分: 環境準備與安裝 (20 分鐘)
 
 ### 4. 安裝 Docker Desktop (10 分鐘)
-- [ ] 安裝步驟 slide (Windows/Mac/Linux)
-- [ ] 驗證指令 slide (`docker --version`, `docker compose version`)
-- [ ] Docker Desktop 介面導覽
+- [x] 安裝步驟 slide (Windows/Mac/Linux)
+- [x] 驗證指令 slide (`docker --version`, `docker compose version`)
+- [x] Docker Desktop 介面導覽
 
 ### 5. 建立專案資料夾 (10 分鐘)
-- [ ] 專案結構圖示 slide
-- [ ] 資料夾用途說明 slide
-- [ ] 實際操作步驟 slide
+- [x] 專案結構圖示 slide
+- [x] 資料夾用途說明 slide
+- [x] 實際操作步驟 slide
 
 ---
 
